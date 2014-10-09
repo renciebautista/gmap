@@ -1,0 +1,13 @@
+D:\visual studio.dev\syntech\gmap\gmap\bin\Release\gmap.exe.config
+D:\visual studio.dev\syntech\gmap\gmap\bin\Release\gmap.exe
+D:\visual studio.dev\syntech\gmap\gmap\bin\Release\gmap.pdb
+D:\visual studio.dev\syntech\gmap\gmap\bin\Release\GMap.NET.Core.dll
+D:\visual studio.dev\syntech\gmap\gmap\bin\Release\GMap.NET.WindowsForms.dll
+D:\visual studio.dev\syntech\gmap\gmap\bin\Release\GMap.NET.Core.xml
+D:\visual studio.dev\syntech\gmap\gmap\bin\Release\GMap.NET.WindowsForms.xml
+D:\visual studio.dev\syntech\gmap\gmap\obj\Release\gmap.frmMain.resources
+D:\visual studio.dev\syntech\gmap\gmap\obj\Release\gmap.frmMap.resources
+D:\visual studio.dev\syntech\gmap\gmap\obj\Release\gmap.Properties.Resources.resources
+D:\visual studio.dev\syntech\gmap\gmap\obj\Release\gmap.csproj.GenerateResource.Cache
+D:\visual studio.dev\syntech\gmap\gmap\obj\Release\gmap.exe
+D:\visual studio.dev\syntech\gmap\gmap\obj\Release\gmap.pdb
