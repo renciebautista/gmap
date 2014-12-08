@@ -45,6 +45,7 @@ namespace gmap
             txtVersion.Text = settingsClass.GetValue("tig_version");
             txtServer.Text = settingsClass.GetValue("tig_server");
             txtPort.Text = settingsClass.GetValue("server_port");
+            txtCenter.Text = settingsClass.GetValue("center");
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -56,6 +57,7 @@ namespace gmap
                 txtVersion.Enabled = true;
                 txtServer.Enabled = true;
                 txtPort.Enabled = true;
+                txtCenter.Enabled = true;
             }
             else
             {
@@ -63,6 +65,7 @@ namespace gmap
                 settingsClass.AddValue("tig_version", txtVersion.Text);
                 settingsClass.AddValue("tig_server", txtServer.Text);
                 settingsClass.AddValue("server_port", txtPort.Text);
+                settingsClass.AddValue("center", txtCenter.Text);
                 this.Close();
                 DialogResult result = MessageBox.Show("Please restart the application to initialize the settings", "System Settings",
                   MessageBoxButtons.OK, MessageBoxIcon.Question);

@@ -10,12 +10,13 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace gmap
 {
-    
+
     public partial class frmMap : Form
     {
         internal readonly GMapOverlay objects = new GMapOverlay("objects");
@@ -25,7 +26,8 @@ namespace gmap
 
             // config map         
             MainMap.MapProvider = GMapProviders.OpenCycleTransportMap;
-            MainMap.Position = new PointLatLng(14.6, 121);
+            string[] center = settingsClass.GetValue("center").Split(',');
+            MainMap.Position = new PointLatLng(Convert.ToDouble(center[0].ToString()), Convert.ToDouble(center[1].ToString()));
             MainMap.MinZoom = 0;
             MainMap.MaxZoom = 24;
             MainMap.Zoom = 13;
@@ -40,19 +42,56 @@ namespace gmap
                 MessageBox.Show("No internet connection available, going to CacheOnly mode.", "GMap.NET - Demo.WindowsForms", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-        }   
-       
+        }
+
+        private List<int> selected()
+        {
+            List<int> list = new List<int>();
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[1].Value))
+                {
+                    list.Add(Int32.Parse(row.Cells[0].Value.ToString()));
+                }
+            }
+
+            return list;
+        }
 
         private void plotTrain()
         {
-            objects.Markers.Clear();
+            this.Text = DateTime.Now.ToString();
+            timer1.Enabled = false;
 
             List<PointLatLng> positions = new List<PointLatLng>();
-            string aLine;
+            List<int> list = selected();
 
             #region Read File Data
-            TextReader file = new StreamReader(config.MyDirectory() + @"\data\data.csv");
+            if (list.Count > 0)
+            {
+                string query = "SELECT * FROM logs WHERE device_id IN(" + String.Join(",", list.ToArray()) + ") GROUP BY device_id ORDER BY id DESC LIMIT 1";
+                DataTable dt = SqliteDal.getData(query);
 
+                foreach (DataRow row in dt.Rows) // Loop over the rows.
+                {
+                    PointLatLng p = new PointLatLng
+                    {
+                        Lat = float.Parse(row["lat"].ToString()),
+                        Lng = float.Parse(row["lng"].ToString())
+                    };
+                    //positions.Add(p);
+                    //GMarkerGoogle m = new GMarkerGoogle(p, GMarkerGoogleType.green);
+                    Image markerImage = Image.FromFile(config.MyDirectory() + @"\marker\train.png");
+                    //GMapCustomImageMarker marker = new GMapCustomImageMarker(markerImage, p);
+                    GMapMarkerImage marker = new GMapMarkerImage(p, markerImage);
+                    objects.Markers.Add(marker);
+
+                    //add marker
+                }
+            }
+            MainMap.Refresh();
+            /*TextReader file = new StreamReader(config.MyDirectory() + @"\data\data.csv");
+            string aLine;
             while ((aLine = file.ReadLine()) != null)
             {
                 string[] pos = aLine.Split(',');
@@ -71,33 +110,25 @@ namespace gmap
                 //add marker
 
 
-            }
+            }*/
             #endregion
 
-            
+
 
             //Random rnd = new Random();
             //int index = rnd.Next(1, positions.Count); // creates a number between 1 and 12
 
             //GMarkerGoogle m = new GMarkerGoogle(positions[index], GMarkerGoogleType.orange);
             //objects.Markers.Add(m);
-
+            timer1.Enabled = true;
         }
 
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //if (!Stuff.PingNetwork("pingtest.com"))
-            //{
-            //    MainMap.Manager.Mode = AccessMode.CacheOnly;
-            //}
-            //else
-            //{
-            //    MainMap.Manager.Mode = AccessMode.ServerAndCache;
-               
-            //}
-            //MainMap.ReloadMap();
+            objects.Markers.Clear();
             plotTrain();
+
         }
 
         private void frmMap_FormClosing(object sender, FormClosingEventArgs e)
@@ -112,8 +143,19 @@ namespace gmap
 
         private void frmMap_Load(object sender, EventArgs e)
         {
+
             DataTable dt = SqliteDal.getData("SELECT * FROM devices");
+            dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = dt;
         }
+
+        private void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.IsCurrentCellDirty)
+            {
+                dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
     }
 }

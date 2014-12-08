@@ -22,3 +22,4 @@ D:\visual studio.dev\syntech\gmap\gmap\bin\Release\System.Data.SQLite.xml
 D:\visual studio.dev\syntech\gmap\gmap\obj\Release\gmap.frmAbout.resources
 D:\visual studio.dev\syntech\gmap\gmap\obj\Release\gmap.frmFilter.resources
 D:\visual studio.dev\syntech\gmap\gmap\obj\Release\gmap.csprojResolveAssemblyReference.cache
+D:\visual studio.dev\syntech\gmap\gmap\obj\Release\gmap.frmSettings.resources
