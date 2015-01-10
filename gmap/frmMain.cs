@@ -39,10 +39,7 @@ namespace gmap
         private void frmMain_Load(object sender, EventArgs e)
         {
             config.DatabaseFile = config.MyDirectory() + @"\data\db";
-  
-
             tig.connect();
-            
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

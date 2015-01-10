@@ -91,12 +91,12 @@ namespace gmap
             //Process codes
 
             //MessageBox.Show(Encoding.UTF8.GetString(received));
-            //this.Invoke((MethodInvoker)(() => txtReply.AppendText(RemoteIpEndPoint + "=>" + Encoding.UTF8.GetString(received) + Environment.NewLine)));
-            string xml = Encoding.UTF8.GetString(received);
-
-            XmlDocument xmlDoc = new XmlDocument();
+            // this.Invoke((MethodInvoker)(() => txtReply.AppendText(RemoteIpEndPoint + "=>" + Encoding.UTF8.GetString(received) + Environment.NewLine)));
+           
             try
             {
+                string xml = Encoding.UTF8.GetString(received);
+                XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.LoadXml(xml);
 
                 Device d = new Device();
@@ -106,7 +106,8 @@ namespace gmap
 
                 if (nodes.Count == 1)
                 {
-                    foreach (XmlNode node in xmlDoc.GetElementsByTagName("Tetra"))
+
+                   foreach (XmlNode node in xmlDoc.GetElementsByTagName("Tetra"))
                     {
                         d.Mcc = node.Attributes["Mcc"].Value;
                         d.Mnc = node.Attributes["Mnc"].Value;
@@ -142,10 +143,10 @@ namespace gmap
                         d.Lng = ConvertDegreeAngleToDouble(Convert.ToDouble(node.Attributes["Degrees"].Value),
                             Convert.ToDouble(node.Attributes["Minutes"].Value), Convert.ToDouble(node.Attributes["Seconds"].Value));
                     }
-
+                    logDevice(d);
                 }
 
-                logDevice(d);
+                
             }
             catch (Exception err)
             {
