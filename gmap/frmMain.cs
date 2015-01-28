@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 namespace gmap
 {
     public partial class frmMain : Form
@@ -39,6 +40,32 @@ namespace gmap
         private void frmMain_Load(object sender, EventArgs e)
         {
             config.DatabaseFile = config.MyDirectory() + @"\data\db";
+
+            using (SQLiteConnection conn = new SQLiteConnection(config.DataSource))
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand())
+                {
+                    cmd.Connection = conn;
+                    conn.Open();
+
+                    SQLiteHelper sh = new SQLiteHelper(cmd);
+
+                    //Update structure
+                    SQLiteTable tb = new SQLiteTable();
+                    tb.Columns.Add(new SQLiteColumn("id", true));
+                    tb.Columns.Add(new SQLiteColumn("mcc"));
+                    tb.Columns.Add(new SQLiteColumn("mnc"));
+                    tb.Columns.Add(new SQLiteColumn("ssi"));
+                    tb.Columns.Add(new SQLiteColumn("image"));
+
+                    sh.UpdateTableStructure("devices", tb);
+
+                    conn.Close();
+                }
+            }
+            
+
+            
             tig.connect();
         }
 

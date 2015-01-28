@@ -4,6 +4,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
 
 namespace gmap
 {
@@ -37,7 +40,7 @@ namespace gmap
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (frmDeviceAdd add = new frmDeviceAdd())
+            using (frmDeviceAdd add = new frmDeviceAdd(frmDeviceAdd.FormMode.Add))
             {
                 DialogResult result = add.ShowDialog();
                 if (result == DialogResult.OK)
@@ -46,9 +49,29 @@ namespace gmap
                 }
             }
         }
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            using (frmDeviceAdd edit = new frmDeviceAdd(frmDeviceAdd.FormMode.Edit))
+            {
+                edit.DeviceId = Convert.ToInt32(dataGridView1.CurrentRow.Cells["id"].Value.ToString());
+                DialogResult result = edit.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    bind_Devices();
+                }
+            }
+        }
+
 
         private void frmDevice_Load(object sender, EventArgs e)
         {
+            // Add a DataGridViewImageColumn to display the images
+            DataGridViewImageColumn img = new DataGridViewImageColumn();
+            img.Name = "Image";
+            dataGridView1.Columns.Insert(1, img);
+            dataGridView1.Columns[1].Width = 60;
+            dataGridView1.Columns[1].HeaderText = "Icon";
+
             bind_Devices();
         }
 
@@ -58,6 +81,7 @@ namespace gmap
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = dt;
 
+            
             ToggleAdd();
 
         }
@@ -65,10 +89,10 @@ namespace gmap
         private void btnFind_Click(object sender, EventArgs e)
         {
             int result;
-            DataTable dt = SqliteDal.getData("SELECT * FROM devices");
+            DataTable dt = SqliteDal.getData("SELECT id, mcc, mnc, ssi FROM devices");
 
-            string[] fields = new string[] { "ID", "UID", "Alias" };
-            int[] fieldsSize = new int[] { 50, 200, 250 };
+            string[] fields = new string[] { "ID", "MCC", "MNC", "SSI" };
+            int[] fieldsSize = new int[] { 50, 100 , 100, 300};
 
             frmFilter filter = new frmFilter();
             filter.DataSource = dt;
@@ -122,6 +146,29 @@ namespace gmap
                 btnFind.Enabled = false;
             }
         }
-       
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (this.dataGridView1.Columns[e.ColumnIndex].Name == "Image")
+            {
+                if (dataGridView1["image_path", e.RowIndex].Value.ToString() != "")
+                {
+                    e.Value = Image.FromFile(config.MyDirectory() + @"\marker\" + dataGridView1["image_path", e.RowIndex].Value.ToString());
+                }
+                
+            }
+            //if (e.RowIndex > -1 && e.ColumnIndex == this.dataGridView1.Columns["Image"].Index)
+            //{
+
+            //    if (this.dataGridView1["image_path", e.RowIndex].Value != null)
+            //    {
+            //        string s = this.dataGridView1["image_path", e.RowIndex].Value.ToString();
+
+            //        
+
+            //    }
+
+            //}
+        }
     }
 }

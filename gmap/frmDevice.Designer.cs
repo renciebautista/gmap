@@ -40,6 +40,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnFind = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.image_path = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mcc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mnc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ssi = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,9 +94,11 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
+            this.image_path,
             this.mcc,
             this.mnc,
             this.ssi});
@@ -104,9 +107,11 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowTemplate.Height = 25;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(670, 491);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
             // btnClose
             // 
@@ -136,6 +141,7 @@
             this.btnEdit.TabIndex = 4;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -164,6 +170,14 @@
             this.id.Name = "id";
             this.id.ReadOnly = true;
             this.id.Width = 50;
+            // 
+            // image_path
+            // 
+            this.image_path.DataPropertyName = "image";
+            this.image_path.HeaderText = "image_path";
+            this.image_path.Name = "image_path";
+            this.image_path.ReadOnly = true;
+            this.image_path.Visible = false;
             // 
             // mcc
             // 
@@ -229,6 +243,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnFind;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn image_path;
         private System.Windows.Forms.DataGridViewTextBoxColumn mcc;
         private System.Windows.Forms.DataGridViewTextBoxColumn mnc;
         private System.Windows.Forms.DataGridViewTextBoxColumn ssi;

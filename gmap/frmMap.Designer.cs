@@ -31,11 +31,12 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.MainMap = new GMap.NET.WindowsForms.GMapControl();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ssi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MainMap = new GMap.NET.WindowsForms.GMapControl();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.image_path = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -72,7 +73,8 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.id1,
-            this.ssi});
+            this.ssi,
+            this.image_path});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.MultiSelect = false;
@@ -81,29 +83,8 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(243, 500);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridView1_CurrentCellDirtyStateChanged);
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // id1
-            // 
-            this.id1.HeaderText = "";
-            this.id1.Name = "id1";
-            this.id1.Width = 20;
-            // 
-            // ssi
-            // 
-            this.ssi.DataPropertyName = "ssi";
-            this.ssi.HeaderText = "Ssi";
-            this.ssi.Name = "ssi";
-            this.ssi.ReadOnly = true;
-            this.ssi.Width = 200;
             // 
             // MainMap
             // 
@@ -137,6 +118,36 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // id1
+            // 
+            this.id1.HeaderText = "";
+            this.id1.Name = "id1";
+            this.id1.Width = 20;
+            // 
+            // ssi
+            // 
+            this.ssi.DataPropertyName = "ssi";
+            this.ssi.HeaderText = "Ssi";
+            this.ssi.Name = "ssi";
+            this.ssi.ReadOnly = true;
+            this.ssi.Width = 200;
+            // 
+            // image_path
+            // 
+            this.image_path.DataPropertyName = "image";
+            this.image_path.HeaderText = "image_path";
+            this.image_path.Name = "image_path";
+            this.image_path.ReadOnly = true;
+            this.image_path.Visible = false;
+            // 
             // frmMap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -169,6 +180,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewCheckBoxColumn id1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ssi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn image_path;
 
     }
 }

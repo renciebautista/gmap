@@ -11,7 +11,6 @@ D:\visual studio.dev\gmap\gmap\bin\Debug\GMap.NET.WindowsForms.xml
 D:\visual studio.dev\gmap\gmap\obj\Debug\gmap.exe
 D:\visual studio.dev\gmap\gmap\obj\Debug\gmap.pdb
 D:\visual studio.dev\gmap\gmap\obj\Debug\gmap.frmMain.resources
-D:\visual studio.dev\syntech\gmap\gmap\obj\Debug\gmap.csprojResolveAssemblyReference.cache
 D:\visual studio.dev\syntech\gmap\gmap\obj\Debug\gmap.frmAbout.resources
 D:\visual studio.dev\syntech\gmap\gmap\obj\Debug\gmap.frmDevice.resources
 D:\visual studio.dev\syntech\gmap\gmap\obj\Debug\gmap.frmDeviceAdd.resources
